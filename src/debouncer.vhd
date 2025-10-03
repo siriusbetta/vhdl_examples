@@ -26,8 +26,8 @@ begin
             button_sync <= button;
             button_prev <= button_debounced;
 
-            if button_sync '1' then
-                if counter  < 50000  then
+            if button_sync = '1' then
+                if counter < 50000  then
                     counter <= counter + 1;
                 end if;    
             else
