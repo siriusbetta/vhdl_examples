@@ -14,7 +14,7 @@ entity blinker is
 end blinker;
 
 architecture Structural of blinker is
-    constant freg_value : natural := 13500000;
+    constant freg_value : natural := WIDTH;
     signal freg_cnt : natural range 0 to freg_value;
     signal toggle : std_logic := '0';
 
