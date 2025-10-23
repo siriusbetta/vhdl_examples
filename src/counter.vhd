@@ -16,7 +16,7 @@ end counter;
 architecture Structural of counter is
     signal cnt : unsigned(WIDTH - 1 downto 0) := (others => '0');
 begin   
-    P_CNT: process(clk, reset)
+    process(clk, reset)
     begin
         if reset = '1' then
             cnt <= (others => '0');

@@ -12,7 +12,6 @@ end entity debouncer;
 
 architecture structural of debouncer is
 
-signal out_state : std_logic := '0';
 signal button_sync : std_logic :='0';
 signal button_debounced : std_logic := '0';
 signal button_prev : std_logic := '0';
@@ -22,12 +21,17 @@ begin
 -- processes
     process(clk)
     begin
-        if rising_edge(clk) then
+        if reset_n = '1' then  -- ← ДОБАВИТЬ условие сброса
+            button_sync      <= '0';
+            button_debounced <= '0';
+            button_prev      <= '0';
+            counter          <= 0;
+        elsif rising_edge(clk) then
             button_sync <= button;
             button_prev <= button_debounced;
 
             if button_sync = '1' then
-                if counter < 50000  then
+                if counter  < 50000  then
                     counter <= counter + 1;
                 end if;    
             else
@@ -39,13 +43,10 @@ begin
             else
                 button_debounced <= '0';
             end if;
-            
-            if button_prev = '0' and button_debounced = '1' then
-                out_state <= not out_state;
-            end if;
+           
         end if;
     end process;
 
-    debounced_out <= out_state;
+    debounced_out <= button_debounced;
 
 end architecture structural;
