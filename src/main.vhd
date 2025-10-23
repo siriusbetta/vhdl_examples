@@ -16,7 +16,9 @@ signal button_clean : std_logic;
 signal button_prev : std_logic := '0';
 
 signal led_state : std_logic := '0';
+signal blinker_out : std_logic := '0';
 
+-- components
 component debouncer is 
      port (
             clk     : in  std_logic;
@@ -26,9 +28,22 @@ component debouncer is
         );
 end component;
 
-begin
+component blinker is
+    generic (
+         WIDTH : integer := 13500000
+    );
+    port (
+        clk : in std_logic;
+        reset : in std_logic;
+        q : out std_logic
+    );
+end component;
+-- end components
+
+
 -- processes
-   
+begin
+-- instances
 DEBOUNCE_INST : debouncer 
     port map (
         clk     => clk,
@@ -36,8 +51,20 @@ DEBOUNCE_INST : debouncer
         button => button,
         debounced_out => button_clean
     );
-        
 
+BLINKER_1Hz_INST: blinker
+    generic map (
+         WIDTH => 13500000
+            )
+        port map (
+             clk => clk,
+             reset => reset_n,
+        q => blinker_out
+        
+    );
+-- end instances
+
+-- processes
 LED_TOGGLE : process(clk, reset_n)
 begin
     if reset_n = '1' then
@@ -51,8 +78,10 @@ begin
     end if;
 end process;
 
+-- end processes
 
     -- Connect internal signals to output ports (or further processing)
     led_out(0) <= led_state;
+    led_out(1) <= blinker_out;
 
 end architecture structural;
