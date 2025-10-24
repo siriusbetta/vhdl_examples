@@ -19,7 +19,7 @@ signal counter : integer range 0 to 50000 := 0;
 
 begin
 -- processes
-    process(clk, reset_n)
+    process(clk)
     begin
         if reset_n = '1' then
             button_sync      <= '0';

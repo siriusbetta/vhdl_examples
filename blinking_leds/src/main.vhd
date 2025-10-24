@@ -78,7 +78,7 @@ end process;
 -- end processes
 
     -- Connect internal signals to output ports (or further processing)
-    led_out(0) <= led_state;
-    led_out(1) <= blinker_out;
-
+    -- led_out(0) <= led_state;
+    -- led_out(1) <= blinker_out;
+    led_out <= "1111" & blinker_out & led_state;
 end architecture structural;
