@@ -9,6 +9,6 @@
         <File path="src/counter.vhd" type="file.vhdl" enable="1"/>
         <File path="src/debouncer.vhd" type="file.vhdl" enable="1"/>
         <File path="src/main.vhd" type="file.vhdl" enable="1"/>
-        <File path="src/vhdl_1.cst" type="file.cst" enable="1"/>
+        <File path="src/blinking_leds.cst" type="file.cst" enable="1"/>
     </FileList>
 </Project>

@@ -5,7 +5,6 @@
 *.sh text eol=lf
 *.py text eol=lf
 
-src/*.vhd text eol=crlf
 .* text eol=lf
 
 # Windows-батники в CRLF
