@@ -5,12 +5,12 @@ entity debouncer is
     port (
         clk     : in  std_logic;
         reset_n : in  std_logic;
-        button : in std_logic;
+        button  : in std_logic;
         debounced_out : out std_logic
     );
 end entity debouncer;
 
-architecture structural of debouncer is
+architecture Structural of debouncer is
 
 signal button_sync : std_logic :='0';
 signal button_debounced : std_logic := '0';
@@ -21,11 +21,11 @@ begin
 -- processes
     process(clk)
     begin
-        if reset_n = '1' then  -- ← ДОБАВИТЬ условие сброса
+        if reset_n = '1' then
             button_sync      <= '0';
             button_debounced <= '0';
             button_prev      <= '0';
-            counter          <= 0;
+            counter          <=  0;
         elsif rising_edge(clk) then
             button_sync <= button;
             button_prev <= button_debounced;
@@ -49,4 +49,4 @@ begin
 
     debounced_out <= button_debounced;
 
-end architecture structural;
+end architecture Structural;

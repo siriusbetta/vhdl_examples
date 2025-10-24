@@ -1,0 +1,12 @@
+# Автоматическое определение текстовых файлов, в репозитории — LF
+* text=auto
+
+# Явно: скрипты всегда в LF
+*.sh text eol=lf
+*.py text eol=lf
+
+src/*.vhd text eol=crlf
+.* text eol=lf
+
+# Windows-батники в CRLF
+*.bat text eol=crlf

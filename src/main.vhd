@@ -40,8 +40,6 @@ component blinker is
 end component;
 -- end components
 
-
--- processes
 begin
 -- instances
 DEBOUNCE_INST : debouncer 
@@ -54,13 +52,12 @@ DEBOUNCE_INST : debouncer
 
 BLINKER_1Hz_INST: blinker
     generic map (
-         WIDTH => 13500000
-            )
+            WIDTH => 13500000
+                )
         port map (
              clk => clk,
              reset => reset_n,
-        q => blinker_out
-        
+             q => blinker_out    
     );
 -- end instances
 
