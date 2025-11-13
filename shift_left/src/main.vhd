@@ -1,6 +1,5 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity top_module is
     port (
@@ -12,10 +11,10 @@ entity top_module is
 end entity top_module;
 
 architecture structural of top_module is
--- functions
-    
 -- variables
 
+signal cnt_out : std_logic_vector(2 downto 0);
+signal cnt : integer range 0 to 6 := 0;
 signal clk_1hz : std_logic := '0';
 signal led_pattern : std_logic_vector(5 downto 0);
 
@@ -48,16 +47,33 @@ BLINKER_1Hz_INST: blinker
 -- end instances
 
 -- processes
-
+UPDATE_CNT : process(clk_1hz, reset_n)
+begin
+    if reset_n = '1' then
+        cnt <= 1;
+    elsif rising_edge(clk_1hz) then
+        if cnt = 6 then
+            cnt <= 1;
+        else
+            cnt <= cnt + 1;
+        end if;
+    end if;
+end process;
 RUNNUNG_LEDS : process(clk_1hz, reset_n)
 begin
-    if reset_n = '1' then 
-        led_pattern <= "011111";
+    if reset_n = '1' then
+        led_pattern <= "111111";
     elsif rising_edge(clk_1hz) then
-        led_pattern <= led_pattern(0) & led_pattern(led_pattern'length-1 downto 1); -- циклический сдвиг вправо на 1
-        --led_pattern <= led_pattern(led_pattern'length-2 downto 0) & led_pattern(led_pattern'length-1); -- циклический сдвиг влево на 1
+        case cnt is 
+            when 1 => led_pattern <= "111110";
+            when 2 => led_pattern <= "111101";
+            when 3 => led_pattern <= "111011"; 
+            when 4 => led_pattern <= "110111";
+            when 5 => led_pattern <= "101111";
+            when 6 => led_pattern <= "011111";
+            when others => led_pattern <= "111111";  
+    end case;
     end if;
-    
 end process;
 
 
